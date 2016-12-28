@@ -29,7 +29,7 @@ convert_dataset(const char *data_file,
 {
     scoped_ptr<db::DB> db(db::GetDB("lmdb"));
 
-    db->open(db_path, db::NEW);
+    db->Open(db_path, db::NEW);
     scoped_ptr<db::Transaction> txn(db->NewTransaction());
 
     char label;
