@@ -37,7 +37,7 @@ parse_line(const std::string s,
     int   i;
 
     i = 0;
-    for (string v: tok) {
+    for (auto v: tok) {
         data[i] = atoi(v);
         i ++;
     }
