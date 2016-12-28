@@ -24,7 +24,7 @@ using namespace caffe;
 using boost::scoped_ptr;
 using std::string;
 
-namespace qi = boost::spirit:qi;
+namespace qi = boost::spirit::qi;
 
 int
 parse_line(const std::string s,
