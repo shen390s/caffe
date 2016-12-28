@@ -22,6 +22,23 @@ using boost::scoped_ptr;
 using std::string;
 
 int
+convert_dataset(const char *data_file,
+                const char *db_path,
+                int ncolData,
+                int percent)
+{
+    scoped_ptr<db::DB> db(db::GetDB("lmdb"));
+
+    db->open(db_path, db::NEW);
+    scoped_ptr<db::Transaction> txn(db->NewTransaction());
+
+    char label;
+    string value;
+    Datum  datum;
+
+    return 0;
+}
+int
 main(int argc, char *argv[])
 {
     return 0;
