@@ -1,6 +1,6 @@
 #include <gflags/gflags.h>
 #include <glog/logging.h>
-#include <gooogle/protobuf/text_format.h>
+#include <google/protobuf/text_format.h>
 
 #include <leveldb/db.h>
 #include <leveldb/write_batch.h>
