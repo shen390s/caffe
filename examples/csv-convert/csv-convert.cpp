@@ -31,16 +31,19 @@ parse_line(const std::string s,
            int *nfields,
            int *data)
 {
-    typedef boost::tokenizer< boost::escaped_list_separator<char> , std::string::const_iterator, std::string> Tokenizer;
+    typedef boost::tokenizer< boost::escaped_list_separator<char> ,
+                              std::string::const_iterator, std::string> Tokenizer;
     boost::escaped_list_separator<char> seps('\\', ',', '\"');
     Tokenizer tok(s, seps);
     int   i;
 
     i = 0;
+#if 0
     for (auto v: tok) {
         data[i] = atoi(v);
         i ++;
     }
+#endif
 
     *nfields = i;
     return 1;
