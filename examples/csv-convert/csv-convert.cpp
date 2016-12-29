@@ -30,7 +30,7 @@ namespace qi = boost::spirit::qi;
 int
 parse_line(const std::string s,
            int *nfields,
-           double *data)
+           int *data)
 {
     typedef boost::tokenizer< boost::escaped_list_separator<char> ,
                               std::string::const_iterator, std::string> Tokenizer;
@@ -41,7 +41,7 @@ parse_line(const std::string s,
     i = 0;
 
     for (auto v: tok) {
-        data[i] = atof(v.c_str());
+        data[i] = atol(v.c_str());
         i ++;
     }
 
@@ -75,7 +75,7 @@ convert_dataset(const char *data_file,
     while (!isdata.eof()) {
         string value;
         Datum datum;
-        double data[64];
+        int data[64];
         int    nfields, s;
         char   label;
 
@@ -88,7 +88,7 @@ convert_dataset(const char *data_file,
         }
 
         datum.set_channels(1);
-        datum.set_height((nfields-1)*8);
+        datum.set_height((nfields-1));
         datum.set_width(sizeof(data[0]));
         datum.set_data(data, sizeof(data[0])*(nfields-1));
 
