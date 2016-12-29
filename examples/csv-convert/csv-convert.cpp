@@ -82,7 +82,7 @@ convert_dataset(const char *data_file,
 int
 main(int argc, char *argv[])
 {
-    convert_dataset("/tmp/abcd.dat", "/tmp", 20, 5);
+    convert_dataset("/tmp/abcd.dat", "/tmp/abcd", 20, 5);
 
     return 0;
 }
