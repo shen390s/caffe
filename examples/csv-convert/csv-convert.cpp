@@ -12,7 +12,7 @@
 #include <fstream>
 #include <string>
 
-#include "boost/scoped_ptr.hpp"
+#include "boost/scoped_ptr.hpp" 
 #include "boost/tokenizer.hpp"
 #include "boost/spirit/include/qi.hpp"
 
@@ -29,7 +29,7 @@ namespace qi = boost::spirit::qi;
 int
 parse_line(const std::string s,
            int *nfields,
-           int *data)
+           double *data)
 {
     typedef boost::tokenizer< boost::escaped_list_separator<char> ,
                               std::string::const_iterator, std::string> Tokenizer;
@@ -38,12 +38,11 @@ parse_line(const std::string s,
     int   i;
 
     i = 0;
-#if 1
+
     for (auto v: tok) {
-        data[i] = atoi(v.c_str());
+        data[i] = atof(v.c_str());
         i ++;
     }
-#endif
 
     *nfields = i;
     return 1;
@@ -56,6 +55,7 @@ convert_dataset(const char *data_file,
                 int percent)
 {
     scoped_ptr<db::DB> db(db::GetDB("lmdb"));
+    std::ifstream isdata(data_file, std::ios::in);
 
     db->Open(db_path, db::NEW);
     scoped_ptr<db::Transaction> txn(db->NewTransaction());
@@ -63,11 +63,26 @@ convert_dataset(const char *data_file,
     char label;
     string value;
     Datum  datum;
+    int    lineno;
+    
+    while (!isdata.eof()) {
+        double data[64];
+        int    nfields;
+
+        isdata >> value;
+        
+        parse_line(value, &nfields, &data[0]);
+        count << "nfields " << nfields << endl;
+    }
+
+    isdata.close();
 
     return 0;
 }
 int
 main(int argc, char *argv[])
 {
+    convert_dataset("/tmp/abcd.dat", "/tmp", 20, 5);
+
     return 0;
 }
