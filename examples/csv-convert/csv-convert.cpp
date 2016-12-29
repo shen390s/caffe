@@ -52,7 +52,6 @@ parse_line(const std::string s,
 int
 convert_dataset(const char *data_file,
                 const char *db_path,
-                int ncolData,
                 int percent)
 {
     scoped_ptr<db::DB> db(db::GetDB("lmdb"));
@@ -117,7 +116,23 @@ convert_dataset(const char *data_file,
 int
 main(int argc, char *argv[])
 {
-    convert_dataset("/tmp/abcd.dat", "/tmp/abcd", 20, 5);
+    char *datafile="data.dat";
+    char *dbpath="./data";
+    int   percent=5;
+
+    if ( argc >= 2) {
+        datafile=argv[1];
+    }
+
+    if (argc >=3 ) {
+        dbpath = argv[2];
+    }
+
+    if (argc >=4 ) {
+        percent=atoi(argv[3]);
+    }
+
+    convert_dataset(datafile, dbpath, percent);
 
     return 0;
 }
