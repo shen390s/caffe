@@ -55,11 +55,20 @@ convert_dataset(const char *data_file,
                 int percent)
 {
     scoped_ptr<db::DB> db(db::GetDB("lmdb"));
+    scoped_ptr<db::DB> testdb(db::GetDB("lmdb"));
+    char               path1[1024];
+    char               path2[1024];
     std::ifstream isdata(data_file, std::ios::in);
     int  lineno = 0;
 
-    db->Open(db_path, db::NEW);
+    sprintf(path1, "%s.train", db_path);
+    sprintf(path2, "%s.test", db_path);
+
+    db->Open(path1, db::NEW);
+    testdb->Open(path2, db::NEW);
+
     scoped_ptr<db::Transaction> txn(db->NewTransaction());
+    scoped_ptr<db::Transaction> testtxn(testdb->NewTransaction());
 
     srandom(time(NULL));
 
@@ -84,40 +93,43 @@ convert_dataset(const char *data_file,
         datum.set_data(data, sizeof(data[0])*(nfields-1));
 
         s = random() % 100;
-        if ( s < percent) {
-            label = 'v';
-        }
-        else {
-            label = 't';
-        }
         datum.set_label((int)data[nfields-1]);
         lineno ++;
 
         string key_str = caffe::format_int(lineno,8);
         datum.SerializeToString(&value);
 
-        txn->Put(key_str, value);
+        if ( s < percent) {
+            testtxn->Put(key_str, value);
+        }
+        else {
+            txn->Put(key_str, value);
+        }
+
         if ( lineno % 1000 == 0) {
             txn->Commit();
+            testtxn->Commit();
         }
         std::cout << "lines " << lineno << std::endl;
     }
 
     if (lineno % 1000 != 0) {
         txn->Commit();
+        testtxn->Commit();
     }
 
     isdata.close();
 
     db->Close();
+    testdb->Close();
 
     return 0;
 }
 int
 main(int argc, char *argv[])
 {
-    char *datafile="data.dat";
-    char *dbpath="./data";
+    char *datafile=(char *)"data.dat";
+    char *dbpath=(char *)"./data";
     int   percent=5;
 
     if ( argc >= 2) {
