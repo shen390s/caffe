@@ -76,6 +76,10 @@ convert_dataset(const char *data_file,
         parse_line(value, &nfields, &data[0]);
         std::cout << "nfields " << nfields << std::endl;
 
+        if ( nfields <= 0) {
+            break;
+        }
+
         datum.set_channels(1);
         datum.set_height(nfields-1);
         datum.set_width(1);
