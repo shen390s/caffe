@@ -72,7 +72,7 @@ convert_dataset(const char *data_file,
         isdata >> value;
         
         parse_line(value, &nfields, &data[0]);
-        count << "nfields " << nfields << endl;
+        cout << "nfields " << nfields << endl;
     }
 
     isdata.close();
