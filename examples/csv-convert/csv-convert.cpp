@@ -92,7 +92,7 @@ convert_dataset(const char *data_file,
         else {
             label = 't';
         }
-        datum.set_label(data[nfields-1]);
+        datum.set_label((int)data[nfields-1]);
         lineno ++;
 
         string key_str = caffe::format_int(lineno,8);
