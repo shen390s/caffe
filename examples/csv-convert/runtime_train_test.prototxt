@@ -9,7 +9,7 @@ layer {
    }
 
    data_param {
-      source: "examples/runtime/train_db"
+      source: "examples/runtime/db.train"
       batch_size: 100
       backend: LMDB
    }
@@ -25,7 +25,7 @@ layer {
    }
 
    data_param {
-      source: "examples/runtime/test_db"
+      source: "examples/runtime/db.test"
       batch_size: 10
       backend: LMDB
    }
