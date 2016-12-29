@@ -79,7 +79,7 @@ convert_dataset(const char *data_file,
         datum.set_channels(1);
         datum.set_height(nfields-1);
         datum.set_width(1);
-        datum.set_data(data);
+        datum.set_data(data, sizeof(data[0])*(nfields-1));
 
         s = random() % 100;
         if ( s < percent) {
@@ -88,7 +88,7 @@ convert_dataset(const char *data_file,
         else {
             label = 't';
         }
-        datum.set_label(label);
+        datum.set_label(data[nfields-1]);
         lineno ++;
 
         string key_str = caffe::format_int(lineno,8);
