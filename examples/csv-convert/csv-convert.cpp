@@ -59,7 +59,7 @@ convert_dataset(const char *data_file,
     char               path1[1024];
     char               path2[1024];
     std::ifstream isdata(data_file, std::ios::in);
-    int  lineno = 0;
+    int  lineno = 0, cnt1=0, cnt2=0;
 
     sprintf(path1, "%s.train", db_path);
     sprintf(path2, "%s.test", db_path);
@@ -96,13 +96,17 @@ convert_dataset(const char *data_file,
         datum.set_label((int)data[nfields-1]);
         lineno ++;
 
-        string key_str = caffe::format_int(lineno,8);
         datum.SerializeToString(&value);
 
         if ( s < percent) {
+            string key_str = caffe::format_int(cnt1,8);
+
+            cnt1 ++;
             testtxn->Put(key_str, value);
         }
         else {
+            string key_str = caffe::format_int(cnt2,8);
+            cnt2 ++;
             txn->Put(key_str, value);
         }
 
