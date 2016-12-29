@@ -322,6 +322,7 @@ else
 	COMMON_FLAGS += -DNDEBUG -O2
 endif
 
+COMMON_FLAGS += -std=c++11
 # cuDNN acceleration configuration.
 ifeq ($(USE_CUDNN), 1)
 	LIBRARIES += cudnn
