@@ -73,7 +73,6 @@ convert_dataset(const char *data_file,
         isdata >> value;
         
         parse_line(value, &nfields, &data[0]);
-        std::cout << "nfields " << nfields << std::endl;
 
         if ( nfields <= 0) {
             break;
@@ -101,6 +100,7 @@ convert_dataset(const char *data_file,
         if ( lineno % 1000 == 0) {
             txn->Commit();
         }
+        std::cout << "lines " << lineno << std::endl;
     }
 
     if (lineno % 1000 != 0) {
