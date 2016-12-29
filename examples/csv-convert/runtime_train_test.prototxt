@@ -101,6 +101,9 @@ layer {
   bottom: "ip2"
   bottom: "label"
   top: "loss"
+  include {
+     phase: TRAIN
+  }
 }
 
 
