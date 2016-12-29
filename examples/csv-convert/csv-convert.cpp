@@ -8,6 +8,7 @@
 
 #include <stdint.h>
 #include <sys/stat.h>
+#include <stdlib.h>
 
 #include <fstream>
 #include <string>
@@ -56,26 +57,56 @@ convert_dataset(const char *data_file,
 {
     scoped_ptr<db::DB> db(db::GetDB("lmdb"));
     std::ifstream isdata(data_file, std::ios::in);
+    int  lineno = 0;
 
     db->Open(db_path, db::NEW);
     scoped_ptr<db::Transaction> txn(db->NewTransaction());
 
-    char label;
-    string value;
-    Datum  datum;
-    int    lineno;
-    
+    srandom(time(NULL));
+
     while (!isdata.eof()) {
+        string value;
+        Datum datum;
         double data[64];
-        int    nfields;
+        int    nfields, s;
+        char   label;
 
         isdata >> value;
         
         parse_line(value, &nfields, &data[0]);
         std::cout << "nfields " << nfields << std::endl;
+
+        datum.set_channels(1);
+        datum.set_height(nfields-1);
+        datum.set_width(1);
+        datum.set_data(data);
+
+        s = random() % 100;
+        if ( s < percent) {
+            label = 'v';
+        }
+        else {
+            label = 't';
+        }
+        datum.set_label(label);
+        lineno ++;
+
+        string key_str = caffe::format_int(lineno,8);
+        datum.SerializeToString(&value);
+
+        txn->Put(key_str, value);
+        if ( lineno % 1000 == 0) {
+            txn->Commit();
+        }
+    }
+
+    if (lineno % 1000 != 0) {
+        txn->Commit();
     }
 
     isdata.close();
+
+    db->Close();
 
     return 0;
 }
