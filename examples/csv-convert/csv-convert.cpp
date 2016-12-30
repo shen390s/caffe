@@ -77,7 +77,6 @@ convert_dataset(const char *data_file,
         Datum datum;
         int data[64];
         int    nfields, s;
-        char   label;
 
         isdata >> value;
         
