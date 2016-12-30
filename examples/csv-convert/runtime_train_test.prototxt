@@ -109,6 +109,38 @@ layer {
     decay_mult: 0
   }
   inner_product_param {
+    num_output: 20
+    weight_filler {
+      type: "gaussian"
+      std: 0.01
+    }
+    bias_filler {
+      type: "constant"
+    }
+  }
+}
+
+layer {
+   name: "relu3"
+   type: "ReLU"
+   bottom: "ip3"
+   top: "ip3"
+}
+
+layer {
+  name: "ip4"
+  type: "InnerProduct"
+  bottom: "ip3"
+  top: "ip4"
+  param {
+    lr_mult: 1
+    decay_mult: 250
+  }
+  param {
+    lr_mult: 2
+    decay_mult: 0
+  }
+  inner_product_param {
     num_output: 1
     weight_filler {
       type: "gaussian"
@@ -123,7 +155,7 @@ layer {
 layer {
   name: "loss"
   type: "EuclideanLoss"
-  bottom: "ip3"
+  bottom: "ip4"
   bottom: "label"
   top: "loss"
 }
