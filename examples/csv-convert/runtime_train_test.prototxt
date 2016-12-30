@@ -154,11 +154,8 @@ layer {
 
 layer {
   name: "loss"
-  type: "HingeLoss"
+  type: "EuclideanLoss"
   bottom: "ip4"
   bottom: "label"
   top: "loss"
-  hinge_loss_param {
-    norm: L1
-  }
 }
