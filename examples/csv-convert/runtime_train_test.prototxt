@@ -10,7 +10,7 @@ layer {
 
    data_param {
       source: "examples/runtime/db.train"
-      batch_size: 1
+      batch_size: 16
       backend: LMDB
    }
 }
