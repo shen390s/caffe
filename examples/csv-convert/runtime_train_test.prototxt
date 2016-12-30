@@ -58,7 +58,7 @@ layer {
 
 layer {
    name: "relu1"
-   type: "ReLU"
+   type: "BNLL"
    bottom: "ip1"
    top: "ip1"
 }
@@ -90,7 +90,7 @@ layer {
 
 layer {
    name: "relu2"
-   type: "ReLU"
+   type: "BNLL"
    bottom: "ip2"
    top: "ip2"
 }
@@ -122,7 +122,7 @@ layer {
 
 layer {
    name: "relu3"
-   type: "ReLU"
+   type: "BNLL"
    bottom: "ip3"
    top: "ip3"
 }
