@@ -125,22 +125,9 @@ layer {
   }
 }
 layer {
-  name: "accuracy"
-  type: "HingeLoss"
-  bottom: "ip2"
-  bottom: "label"
-  top: "accuracy"
-  include {
-    phase: TEST
-  }
-}
-layer {
   name: "loss"
-  type: "HingeLoss"
+  type: "SoftmaxWithLoss"
   bottom: "ip2"
   bottom: "label"
   top: "loss"
-  include {
-     phase: TRAIN
-  }
 }
