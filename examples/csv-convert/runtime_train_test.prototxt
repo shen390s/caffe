@@ -102,7 +102,7 @@ layer {
 
 layer {
   name: "accuracy"
-  type: "Accuracy"
+  type: "EuclideanLoss"
   bottom: "ip1"
   bottom: "label"
   top: "accuracy"
