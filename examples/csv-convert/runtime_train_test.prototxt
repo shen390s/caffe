@@ -126,7 +126,7 @@ layer {
 }
 layer {
   name: "accuracy"
-  type: "SoftmaxWithLoss"
+  type: "HingeLoss"
   bottom: "ip2"
   bottom: "label"
   top: "accuracy"
@@ -136,7 +136,7 @@ layer {
 }
 layer {
   name: "loss"
-  type: "SoftmaxWithLoss"
+  type: "HingeLoss"
   bottom: "ip2"
   bottom: "label"
   top: "loss"
