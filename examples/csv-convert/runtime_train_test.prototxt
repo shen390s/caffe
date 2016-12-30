@@ -26,7 +26,7 @@ layer {
 
    data_param {
       source: "examples/runtime/db.test"
-      batch_size: 1
+      batch_size: 32
       backend: LMDB
    }
 }
@@ -112,7 +112,7 @@ layer {
 }
 layer {
   name: "loss"
-  type: "SoftmaxWithLoss"
+  type: "EuclideanLoss"
   bottom: "ip1"
   bottom: "label"
   top: "loss"
