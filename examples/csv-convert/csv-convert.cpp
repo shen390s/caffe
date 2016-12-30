@@ -87,7 +87,7 @@ convert_dataset(const char *data_file,
             break;
         }
 
-        datum.set_channels(1);
+        datum.set_channels(4);
         datum.set_height((nfields-1));
         datum.set_width(1 /*sizeof(data[0])*/);
         datum.set_data(data, sizeof(data[0])*(nfields-1));
