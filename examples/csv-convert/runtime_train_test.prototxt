@@ -43,7 +43,7 @@ layer {
     lr_mult: 2
   }
   convolution_param {
-    num_output: 10
+    num_output: 100
     pad: 2
     kernel_size: 5
     stride: 1
@@ -102,7 +102,7 @@ layer {
 
 layer {
   name: "accuracy"
-  type: "EuclideanLoss"
+  type: "Accuracy"
   bottom: "ip1"
   bottom: "label"
   top: "accuracy"
@@ -120,5 +120,3 @@ layer {
      phase: TRAIN
   }
 }
-
-
