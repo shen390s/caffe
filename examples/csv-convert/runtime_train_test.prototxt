@@ -159,6 +159,6 @@ layer {
   bottom: "label"
   top: "loss"
   hinge_loss_param {
-    norm: L2
+    norm: L1
   }
 }
