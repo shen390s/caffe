@@ -38,7 +38,7 @@ layer {
   top: "ip1"
   param {
     lr_mult: 1
-    decay_mult: 250
+    decay_mult: 1
   }
   param {
     lr_mult: 2
@@ -70,7 +70,7 @@ layer {
   top: "ip2"
   param {
     lr_mult: 1
-    decay_mult: 250
+    decay_mult: 1
   }
   param {
     lr_mult: 2
@@ -102,7 +102,7 @@ layer {
   top: "ip3"
   param {
     lr_mult: 1
-    decay_mult: 250
+    decay_mult: 1
   }
   param {
     lr_mult: 2
@@ -134,7 +134,7 @@ layer {
   top: "ip4"
   param {
     lr_mult: 1
-    decay_mult: 250
+    decay_mult: 1
   }
   param {
     lr_mult: 2
