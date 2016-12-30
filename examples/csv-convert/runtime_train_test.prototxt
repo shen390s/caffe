@@ -126,7 +126,7 @@ layer {
 }
 layer {
   name: "accuracy"
-  type: "Accuracy"
+  type: "SoftmaxWithLoss"
   bottom: "ip2"
   bottom: "label"
   top: "accuracy"
